@@ -1,0 +1,17 @@
+{
+  "name": "mathjax-node-sre-server",
+  "version": "1.0.0",
+  "description": "This is a Dockerized version of mathjax-node-sre to run as a LeTeX to SVG and Speaktext micro service in UEB Prep",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Aidan Reidel aidan.reidel@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mathjax-node": "^2.1.1",
+    "mathjax-node-sre": "^4.0.0-beta.0"
+  }
+}
