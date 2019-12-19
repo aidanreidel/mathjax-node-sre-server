@@ -11,5 +11,7 @@ fetch('http://localhost:3000/render')
     }
     console.log(data)
     render_xml('foo', data.svg)
-    document.getElementById('bar').innerHTML = data.speakText
+    if (data.speakText)
+      document.getElementById('bar').innerHTML = data.speakText
+    if (data.speech) document.getElementById('baz').innerHTML = data.speech
   })
