@@ -2,23 +2,10 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// a simple TeX-input example
-var mjAPI = require('mathjax-node')
-
-// const mj = require("mathjax-node").typeset;
-// const postprocessor = require("mathjax-node-sre").postprocessor;
-
-// mj({ math: "x + y", format: "TeX", mml: true }, function(result) {
-//   console.log(result);
-//   postprocessor({ speakText: true }, result, function(output) {
-//     console.log(output.speakText); // => x plus y
-//   });
-// });
+const mjAPI = require('mathjax-node-sre')
 
 mjAPI.config({
-  MathJax: {
-    // traditional MathJax configuration
-  }
+  MathJax: {}
 })
 mjAPI.start()
 
@@ -33,6 +20,9 @@ mjAPI.typeset(
   function(data) {
     if (!data.errors) {
       console.log(data)
+      console.log(data.speakText)
+      if (data.speech) console.log(data.speech)
+
       app.use(express.static('./'))
 
       app.get('/render', (req, res) => res.send(data))
