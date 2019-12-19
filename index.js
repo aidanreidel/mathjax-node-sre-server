@@ -1,9 +1,9 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+const express = require('express')
+const app = express()
+const port = 3000
 
 // a simple TeX-input example
-var mjAPI = require("mathjax-node");
+var mjAPI = require('mathjax-node')
 
 // const mj = require("mathjax-node").typeset;
 // const postprocessor = require("mathjax-node-sre").postprocessor;
@@ -19,27 +19,27 @@ mjAPI.config({
   MathJax: {
     // traditional MathJax configuration
   }
-});
-mjAPI.start();
+})
+mjAPI.start()
 
-var yourMath = "E = mc^2";
+var yourMath = 'E = mc^2'
 
 mjAPI.typeset(
   {
     math: yourMath,
-    format: "TeX", // or "inline-TeX", "MathML"
+    format: 'TeX', // or "inline-TeX", "MathML"
     svg: true
   },
   function(data) {
     if (!data.errors) {
-      console.log(data);
-      app.use(express.static("./"));
+      console.log(data)
+      app.use(express.static('./'))
 
-      app.get("/render", (req, res) => res.send(data));
+      app.get('/render', (req, res) => res.send(data))
 
       app.listen(port, () =>
         console.log(`Example app listening on port ${port}!`)
-      );
+      )
     }
   }
-);
+)
