@@ -14,3 +14,18 @@ test('Hitting the render endpoint and checking for properly formated speech data
       console.log(error)
     })
 })
+const testBody = {
+  LaTeX: 'E = mc^2'
+}
+test('Posting to the test endpoint', t => {
+  t.plan(2)
+  got
+    .post('http://localhost:3000/render-request', {
+      json: testBody
+    })
+    .json()
+    .then(data => {
+      t.equal(data.speakText, 'E = mc^2')
+      t.equal(data.speech, 'upper E equals m c squared')
+    })
+})
