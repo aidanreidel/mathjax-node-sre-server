@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 3000
-
+const PORT = 3000
 const mjAPI = require('mathjax-node-sre')
+
+app.use(express.static('public'))
+
+app.use(express.json())
 
 mjAPI.config({
   MathJax: {}
@@ -10,9 +13,6 @@ mjAPI.config({
 mjAPI.start()
 
 var yourMath = 'E = mc^2'
-
-app.use(express.static('./'))
-app.use(express.json())
 
 app.get('/render', (req, res) => {
   mjAPI.typeset(
@@ -52,4 +52,4 @@ app.post('/render-request', (req, res) => {
   )
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
