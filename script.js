@@ -1,5 +1,3 @@
-console.log('ayyy')
-
 fetch('http://localhost:3000/render')
   .then(response => response.json())
   .then(data => {
