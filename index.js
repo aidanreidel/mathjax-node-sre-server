@@ -11,6 +11,7 @@ mjAPI.config({
 mjAPI.start()
 
 app.post('/', (req, res) => {
+  // Log out what the request time and location
   console.log(
     new Date(),
     'POST from',
@@ -32,11 +33,11 @@ app.post('/', (req, res) => {
     function(data) {
       if (!data.errors) {
         // console.log(data)
-        console.log(data.speakText)
-        if (data.speech) console.log(data.speech)
+        console.log('rendered:', data.speakText)
+        if (data.speech) console.log('speech:', data.speech)
         res.send(data)
       } else {
-        console.log(data.errors)
+        console.log('errors:', data.errors)
         res.send({ errors: data.errors })
       }
     }
