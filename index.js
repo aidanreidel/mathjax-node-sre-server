@@ -3,8 +3,6 @@ const app = express()
 const PORT = 3000
 const mjAPI = require('mathjax-node-sre')
 
-app.use(express.static('public'))
-
 app.use(express.json())
 
 mjAPI.config({
@@ -12,28 +10,7 @@ mjAPI.config({
 })
 mjAPI.start()
 
-var yourMath = 'E = mc^2'
-
-app.get('/render', (req, res) => {
-  mjAPI.typeset(
-    {
-      math: yourMath,
-      format: 'TeX', // or "inline-TeX", "MathML"
-      svg: true
-    },
-    function(data) {
-      if (!data.errors) {
-        console.log(data)
-        console.log(data.speakText)
-        if (data.speech) console.log(data.speech)
-
-        res.send(data)
-      }
-    }
-  )
-})
-
-app.post('/render-request', (req, res) => {
+app.post('/', (req, res) => {
   mjAPI.typeset(
     {
       math: req.body.LaTeX,
