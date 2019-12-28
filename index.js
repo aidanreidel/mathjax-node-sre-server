@@ -11,6 +11,11 @@ mjAPI.config({
 mjAPI.start()
 
 app.post('/', (req, res) => {
+  if (!req.body.LaTeX) {
+    console.log('Request Body Empty')
+    return res.send('Request Body Empty')
+  }
+
   mjAPI.typeset(
     {
       math: req.body.LaTeX,
