@@ -2,7 +2,7 @@ const test = require('tape') // Actual test script
 const got = require('got') // For issuing http requests
 
 // Change which of these is commented out if you are testing locally or production
-// const api = 'http://localhost:3000/'         // Local
+// const api = 'http://localhost:3000/' // Local
 const api = 'https://textosvg.aidanreidel.com/' // Production
 
 const emptyBody = {}
@@ -33,8 +33,16 @@ test('Posting valid LaTeX to the render endpoint should return the right speech'
     })
 })
 
-const simpleFraction = {
+const simpleOverUnderFraction = {
   LaTeX: '0.5 = \\frac{1}{2}'
+}
+
+const simpleSlashDivision = {
+  LaTeX: '3/4 = 0.75'
+}
+
+const simpleDivDivision = {
+  LaTeX: '4 \\div 5 = 0.8'
 }
 
 const quadraticFormula = {
@@ -42,14 +50,30 @@ const quadraticFormula = {
 }
 
 test('Rendering fractions should produce the correct speech output', t => {
-  t.plan(2)
+  t.plan(4)
   got
     .post(api, {
-      json: simpleFraction
+      json: simpleOverUnderFraction
     })
     .json()
     .then(data => {
       t.equal(data.speech, '0.5 equals one-half')
+    })
+  got
+    .post(api, {
+      json: simpleSlashDivision
+    })
+    .json()
+    .then(data => {
+      t.equal(data.speech, '3 slash 4 equals 0.75')
+    })
+  got
+    .post(api, {
+      json: simpleDivDivision
+    })
+    .json()
+    .then(data => {
+      t.equal(data.speech, '4 division-sign 5 equals 0.8')
     })
   got
     .post(api, {
