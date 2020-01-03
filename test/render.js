@@ -5,6 +5,18 @@ const got = require('got') // For issuing http requests
 // const api = 'http://localhost:3000/'         // Local
 const api = 'https://textosvg.aidanreidel.com/' // Production
 
+const emptyBody = {}
+test('Posting an empty request to the render endpoint should return message that the body was empty', t => {
+  t.plan(1)
+  got
+    .post(api, {
+      json: emptyBody
+    })
+    .then(data => {
+      t.equal(data.body, 'Request Body Empty')
+    })
+})
+
 const testBody = {
   LaTeX: 'E = mc^2'
 }
@@ -49,17 +61,5 @@ test('Rendering fractions should produce the correct speech output', t => {
         data.speech,
         'x equals StartFraction negative b plus-or-minus StartRoot b squared minus 4 a c EndRoot Over 2 a EndFraction'
       )
-    })
-})
-
-const emptyBody = {}
-test('Posting an empty request to the render endpoint should return message that the body was empty', t => {
-  t.plan(1)
-  got
-    .post(api, {
-      json: emptyBody
-    })
-    .then(data => {
-      t.equal(data.body, 'Request Body Empty')
     })
 })
